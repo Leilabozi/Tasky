@@ -4,6 +4,8 @@
 
 import UIKit
 
+
+
 class CalendarViewController: UIViewController {
 
     // The array of all tasks to display in the calendar.
@@ -37,6 +39,12 @@ class CalendarViewController: UIViewController {
         tableView.tableHeaderView = UIView()
         // 3.
         setContentScrollView(tableView)
+
+        // MARK: - Setup Notification Observer
+        // Listen for task notifications to update calendar decorations
+        NotificationCenter.default.addObserver(self, selector: #selector(taskDeleted), name: .taskDeleted, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(taskCreated), name: .taskCreated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(taskEdited), name: .taskEdited, object: nil)
 
         // MARK: - Create and add Calendar View to view hierarchy
         // For whatever reason, the UICalendarView can't be added via storyboard. so we'll need to create it, add it to the view heirarchy and setup auto layout constraints programmatically.
@@ -107,6 +115,28 @@ class CalendarViewController: UIViewController {
         refreshTasks()
     }
 
+    // Remove notification observer when view controller is deallocated
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    // MARK: - Notification Handling
+
+    // Handle task deletion notification to update calendar decorations
+    @objc private func taskDeleted() {
+        refreshTasks()
+    }
+
+    // Handle task creation notification to update calendar decorations
+    @objc private func taskCreated() {
+        refreshTasks()
+    }
+
+    // Handle task editing notification to update calendar decorations
+    @objc private func taskEdited() {
+        refreshTasks()
+    }
+
     // MARK: - Helper Functions
 
     // A helper method to filter an array of tasks down to only the tasks which have a due date that matches the given date components.
@@ -139,7 +169,7 @@ class CalendarViewController: UIViewController {
     // 4. Create an array of the task due dates by mapping each task to it's due date property.
     // 5. Create an array of DateComponents from the due dates array.
     // 6. Remove any duplicate date components. There will be multiple date components if there are multiple tasks with the same due date.
-    //    - ⚠️ We'll use these date components to reload the calendar view and it expects all dates to be unique or else...crash 💥
+    //    - We'll use these date components to reload the calendar view and it expects all dates to be unique or else it crashes 
     // 7. Reload the calendar view's date decorations for all of the task due date components.
     // 8. Reload the table view with animation.
     private func refreshTasks() {
@@ -165,7 +195,7 @@ class CalendarViewController: UIViewController {
         let taskDueDates = tasks.map(\.dueDate)
         // 5.
         var taskDueDateComponents = taskDueDates.map { dueDate in
-            Calendar.current.dateComponents([.year, .month, .weekOfMonth, .day], from: dueDate)
+            Calendar.current.dateComponents([.year, .month, .day], from: dueDate)
         }
         // 6.
         taskDueDateComponents.removeDuplicates()

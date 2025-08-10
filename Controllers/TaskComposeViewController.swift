@@ -4,6 +4,8 @@
 
 import UIKit
 
+
+
 class TaskComposeViewController: UIViewController {
 
     @IBOutlet weak var titleField: UITextField!
@@ -79,6 +81,14 @@ class TaskComposeViewController: UIViewController {
         }
         // 5.
         onComposeTask?(task)
+        
+        // Post notification for calendar update
+        if taskToEdit != nil {
+            NotificationCenter.default.post(name: .taskEdited, object: nil)
+        } else {
+            NotificationCenter.default.post(name: .taskCreated, object: nil)
+        }
+        
         // 6.
         dismiss(animated: true)
     }
