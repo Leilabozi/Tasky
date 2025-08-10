@@ -1,10 +1,7 @@
-# Project 7 - *Task App*
+# *Task App*
 
-Submitted by: Leila Bozieva
 
-**Task App** is an app that help with task planning and have calendar to keep track of all things. 
-
-Time spent: 5 hours spent in total
+**Task App** is an app that helps with task planning and has a calendar to keep track of all things. 
 
 ## Required Features
 
@@ -26,10 +23,10 @@ The following **additional** features are implemented:
 ## Video Walkthrough
 
 <div>
-    <a href="https://www.loom.com/share/59757f07a372451b9a13a41d44d6024c">
+    <a href="https://www.loom.com/share/d3336a16c309472b9997b1f3e415bd73">
     </a>
-    <a href="https://www.loom.com/share/59757f07a372451b9a13a41d44d6024c">
-      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/59757f07a372451b9a13a41d44d6024c-9c620203b121558a-full-play.gif">
+    <a href="https://www.loom.com/share/d3336a16c309472b9997b1f3e415bd73">
+      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/d3336a16c309472b9997b1f3e415bd73-8349fec75ae1f56f-full-play.gif">
     </a>
   </div>
 
